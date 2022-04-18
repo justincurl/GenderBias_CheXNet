@@ -272,8 +272,8 @@ if __name__ == "__main__":
     else:
         genders_train=['100%_female_images','0%_female_images']
 
-        for gender in genders_train:
-            for i in folds:
-                if fold > 4: 
-                    break
-                main(fold=i,gender_train=gender, custom_dev=True)
+    for gender in genders_train:
+        for i in folds:
+            if i > 4: 
+                break
+            main(fold=i,gender_train=gender, custom_dev=True)
