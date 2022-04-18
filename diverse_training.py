@@ -189,7 +189,7 @@ def main(fold, gender_train, custom_dev):
             gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
             
             if gpus > 1:
-                print(f"** multi_gpu_model is used! gpus={gpus} **")
+                print(f"=====================================** multi_gpu_model is used! gpus={gpus} **================================================")
                 model_train = multi_gpu_model(model, gpus)
                 # FIXME: currently (Keras 2.1.2) checkpoint doesn't work with multi_gpu_model
                 checkpoint = MultiGPUModelCheckpoint(
