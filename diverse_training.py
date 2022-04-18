@@ -36,7 +36,8 @@ def main(fold, gender_train, custom_dev):
     class_names = cp["DEFAULT"].get("class_names").split(",")
     
     filenames=[]
-    for frac_female in [0, .05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
+    # for frac_female in [0, .05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
+    for frac_female in [0, .1, .2, .5, .8, .9, 1]:
         frac_male = round(1 - frac_female, 2)
         filenames.append("_"+str(frac_female)+"F_"+str(frac_male)+"M")
 
@@ -268,6 +269,6 @@ if __name__ == "__main__":
     else:
         genders_train=['100%_female_images','0%_female_images']
 
-    for i in folds:
-        for gender in genders_train:
+    for gender in genders_train:
+        for i in folds:
             main(fold=i,gender_train=gender, custom_dev=True)
