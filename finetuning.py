@@ -35,14 +35,14 @@ def main(fold, gender_train, custom_dev):
 
     ############################################################################################# fine-tune config ####################################################################################################
     finetune_names = []
-    if gender_train == "0%_female_images":
-        for frac_female in [.05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
-            frac_male = round(1 - frac_female, 2)
-            finetune_names.append("finetune_"+str(frac_male)+"M")
-    else:
-        for frac_female in [.05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
-            frac_male = round(1 - frac_female, 2)
-            finetune_names.append("finetune_"+str(frac_female)+"F")
+    if gender_train == "100%_female_images":
+        # for frac_female in [.5, .75, .8, .85, .9, .95, 1]:
+        for frac_female in [0.1, 0.2, 0.5]:
+            finetune_names.append("_"+str(frac_female)+"F")
+    elif gender_train == "0%_female_images":
+        # for frac_female in [.05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
+        for frac_male in [0.1, 0.2, .5]:
+            finetune_names.append("_"+str(frac_male)+"M")
 
     for finetune_name in finetune_names:
         print("================================================= NEW FINETUNING FILE: " + finetune_name + "... =======================================================")
