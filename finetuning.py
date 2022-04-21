@@ -38,13 +38,13 @@ def main(fold, gender_train, custom_dev):
     if gender_train == "100%_female_images":
         # for frac_female in [.5, .75, .8, .85, .9, .95, 1]:
         for frac_female in [0.1, 0.2, 0.5]:
-            frac_male = "_"+str(round(1 - frac_female, 2))+"M"
-            finetune_names.append((frac_male, "_"+str(frac_female)+"F"))
+            frac_male = str(round(1 - frac_female, 2))+"M"
+            finetune_names.append((frac_male, str(frac_female)+"F"))
     elif gender_train == "0%_female_images":
         # for frac_female in [.05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
         for frac_male in [0.1, 0.2, .5]:
-            frac_female = "_"+str(round(1 - frac_male, 2))+"F"
-            finetune_names.append((frac_female, "_"+str(frac_male)+"M"))
+            frac_female = str(round(1 - frac_male, 2))+"F"
+            finetune_names.append((frac_female, str(frac_male)+"M"))
 
     for frac, finetune_name in finetune_names:
         print("================================================= NEW FINETUNING FILE: " + finetune_name + "... =======================================================")
@@ -52,7 +52,7 @@ def main(fold, gender_train, custom_dev):
             dev_file = "dev"+finetune_name
         else:
             dev_file = "dev"
-        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output'+frac+"/"
+        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output_'+frac+"/"
         image_source_dir = cp["DEFAULT"].get("image_source_dir")
         base_model_name = cp["DEFAULT"].get("base_model_name")
         class_names = cp["DEFAULT"].get("class_names").split(",")
