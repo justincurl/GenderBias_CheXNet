@@ -38,19 +38,21 @@ def main(fold, gender_train, custom_dev):
     if gender_train == "100%_female_images":
         # for frac_female in [.5, .75, .8, .85, .9, .95, 1]:
         for frac_female in [0.1, 0.2, 0.5]:
-            finetune_names.append("_"+str(frac_female)+"F")
+            frac_male = "_"+str(round(1 - frac_female, 2))+"M"
+            finetune_names.append((frac_male, "_"+str(frac_female)+"F"))
     elif gender_train == "0%_female_images":
         # for frac_female in [.05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
         for frac_male in [0.1, 0.2, .5]:
-            finetune_names.append("_"+str(frac_male)+"M")
+            frac_female = "_"+str(round(1 - frac_male, 2))+"F"
+            finetune_names.append((frac_female, "_"+str(frac_male)+"M"))
 
-    for finetune_name in finetune_names:
+    for frac, finetune_name in finetune_names:
         print("================================================= NEW FINETUNING FILE: " + finetune_name + "... =======================================================")
         if custom_dev:
             dev_file = "dev"+finetune_name
         else:
             dev_file = "dev"
-        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output/'
+        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output'
         image_source_dir = cp["DEFAULT"].get("image_source_dir")
         base_model_name = cp["DEFAULT"].get("base_model_name")
         class_names = cp["DEFAULT"].get("class_names").split(",")
@@ -150,7 +152,7 @@ def main(fold, gender_train, custom_dev):
             print("** load model **")
             if use_trained_model_weights:
                 if use_best_weights:
-                    model_weights_file = os.path.join(load_output_dir, f"best_{output_weights_name}")
+                    model_weights_file = os.path.join(load_output_dir+f"{frac}/", f"best_{output_weights_name}")
                 else:
                     model_weights_file = os.path.join(load_output_dir, output_weights_name)
             else:
@@ -163,7 +165,7 @@ def main(fold, gender_train, custom_dev):
                 use_base_weights=use_base_model_weights,
                 weights_path=model_weights_file,
                 input_shape=(image_dimension, image_dimension, 3),
-                finetune=freeze)
+            )
 
             if show_model_summary:
                 print(model.summary())
