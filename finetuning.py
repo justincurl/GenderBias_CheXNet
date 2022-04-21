@@ -52,7 +52,7 @@ def main(fold, gender_train, custom_dev):
             dev_file = "dev"+finetune_name
         else:
             dev_file = "dev"
-        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output'
+        load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output'+frac+"/"
         image_source_dir = cp["DEFAULT"].get("image_source_dir")
         base_model_name = cp["DEFAULT"].get("base_model_name")
         class_names = cp["DEFAULT"].get("class_names").split(",")
@@ -152,7 +152,7 @@ def main(fold, gender_train, custom_dev):
             print("** load model **")
             if use_trained_model_weights:
                 if use_best_weights:
-                    model_weights_file = os.path.join(load_output_dir+f"{frac}/", f"best_{output_weights_name}")
+                    model_weights_file = os.path.join(load_output_dir, f"best_{output_weights_name}")
                 else:
                     model_weights_file = os.path.join(load_output_dir, output_weights_name)
             else:
