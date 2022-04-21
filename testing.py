@@ -8,7 +8,7 @@ from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
 from utility import get_sample_counts
 
 
-def main(fold,gender_train,gender_test, simple):
+def main(fold,gender_train,gender_test):
     # parser config
     config_file = 'config_file.ini'
     cp = ConfigParser()
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("fold", type=int, help="the initial fold to train with")
     parser.add_argument("-g", "--gender", default="female", help="specify gender to start with (default female)")
-    parser.add_argument("-s", "--simple", default="false", help="specify whether to test finetuning as well")
+    
     args = parser.parse_args()
     fold = args.fold
     if fold < 20 and fold >= 0:
@@ -139,14 +139,8 @@ if __name__ == "__main__":
 
     genders_test= ['test_female','test_males']
 
-    if args.simple =="true":
-        simple=True
-    else:
-        simple=False
-
-
     for fold in folds:
         for gender_train in genders_train:
             for gender_test in genders_test:
-                main(fold=fold,gender_train=gender_train,gender_test=gender_test, simple=simple)
+                main(fold=fold,gender_train=gender_train,gender_test=gender_test)
 	
