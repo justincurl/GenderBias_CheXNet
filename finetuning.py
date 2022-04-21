@@ -158,6 +158,8 @@ def main(fold, gender_train, custom_dev):
             else:
                 model_weights_file = None
 
+            print("******load "+model_weights_file+"******")
+
             model_factory = ModelFactory()
             model = model_factory.get_model(
                 class_names,
