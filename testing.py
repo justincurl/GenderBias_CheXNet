@@ -26,18 +26,21 @@ def main(fold,gender_train,gender_test, simple):
 
     root_output_dir= cp["DEFAULT"].get("output_dir") 
     
-    if gender_train == "0%_female_images":
-        if simple:
-            test_names = ['']
-        else:
-            test_names = ['_small_5000', '_small_10000', '_small_15000', '_small_20000', '_small_25000']
+    filenames = []
+    if gender_train == "100%_female_images":
+        # condition 1 diverse training
+        for frac_female in [0, .1, .2, .5, .8, .9, 1]:
+            frac_male = round(1 - frac_female, 2)
+            filenames.append("_"+str(frac_female)+"F_"+str(frac_male)+"M")
+        # condition 2 finetuning
+        for frac_female in [.1, .2, .5]:
+            filenames.append("_finetune_"+str(frac_female)+"F")
     else:
-        if simple:
-            test_names = ['']
-        else:
-            test_names = ['', '_male_finetune_100', '_male_finetune_500', '_male_finetune_1000', '_male_finetune_2500', '_male_finetune_5000']
+        # condition 2 finetuning
+        for frac_male in [.1, .2, .5]:
+            filenames.append("_finetune_"+str(frac_male)+"M")
 
-    for finetune_name in test_names:
+    for finetune_name in filenames:
 
         # default config 
         load_output_dir= root_output_dir + gender_train+'/Fold_'+str(fold)+'/output'+finetune_name+'/'
