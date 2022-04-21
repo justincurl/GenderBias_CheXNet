@@ -49,7 +49,7 @@ def main(fold, gender_train, custom_dev):
     for frac, finetune_name in finetune_names:
         print("================================================= NEW FINETUNING FILE: " + finetune_name + "... =======================================================")
         if custom_dev:
-            dev_file = "dev"+finetune_name
+            dev_file = "dev_"+finetune_name
         else:
             dev_file = "dev"
         load_output_dir= root_output_dir+gender_train+'/Fold_'+str(fold)+'/output_'+frac+"/"
