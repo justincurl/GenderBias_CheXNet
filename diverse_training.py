@@ -186,6 +186,7 @@ def main(fold, gender_train, custom_dev):
             print(f"** set output weights path to: {output_weights_path} **")
 
             print("** check multiple gpu availability **")
+            print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
             gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
             
             if gpus > 1:
