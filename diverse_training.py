@@ -37,7 +37,7 @@ def main(fold, gender_train, custom_dev):
     
     filenames=[]
     # for frac_female in [0, .05, .1, .15, .2, .25, .5, .75, .8, .85, .9, .95, 1]:
-    for frac_female in [0, .1, .2, .5, .8, .9, 1]:
+    for frac_female in [0.9, .1, 0, 1, 0.2, 0.8, 0.5]:
         frac_male = round(1 - frac_female, 2)
         filenames.append("_"+str(frac_female)+"F_"+str(frac_male)+"M")
 
