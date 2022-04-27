@@ -29,7 +29,7 @@ def main(fold,gender_train,gender_test):
     filenames = []
     if gender_train == "100%_female_images":
         # condition 1 diverse training
-        for frac_female in [0, .1, .2, .5, .8, .9, 1]:
+        for frac_female in [0.9, .1, .2, .5, .8, 0, 1]:
             frac_male = round(1 - frac_female, 2)
             filenames.append("_"+str(frac_female)+"F_"+str(frac_male)+"M")
         # condition 2 finetuning
