@@ -186,9 +186,9 @@ def main(fold, gender_train, custom_dev):
             print(f"** set output weights path to: {output_weights_path} **")
 
             print("** check multiple gpu availability **")
-            print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
-            gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
-            
+            # print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
+            # gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
+            gpus = 4
             if gpus > 1:
                 print(f"=====================================** multi_gpu_model is used! gpus={gpus} **================================================")
                 model_train = multi_gpu_model(model, gpus)
