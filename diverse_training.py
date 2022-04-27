@@ -15,11 +15,6 @@ from augmenter import augmenter
 from keras import backend as K
 import tensorflow as tf
 import keras
-from tensorflow.python.client import device_lib
-
-def get_available_gpus():
-    local_device_protos = device_lib.list_local_devices()
-    return [x.name for x in local_device_protos if x.device_type == 'GPU']
 
 def main(fold, gender_train, custom_dev):
     ############################################################################################# parser config ####################################################################################################
@@ -191,9 +186,8 @@ def main(fold, gender_train, custom_dev):
             print(f"** set output weights path to: {output_weights_path} **")
 
             print("** check multiple gpu availability **")
-            # print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
-            # gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
-            gpus = get_available_gpus()
+            print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
+            gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
 
             if len(gpus) > 1:
                 print(f"=====================================** multi_gpu_model is used! gpus={gpus} **================================================")
