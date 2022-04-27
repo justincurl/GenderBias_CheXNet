@@ -15,6 +15,11 @@ from augmenter import augmenter
 from keras import backend as K
 import tensorflow as tf
 import keras
+from tensorflow.python.client import device_lib
+
+def get_available_gpus():
+    local_device_protos = device_lib.list_local_devices()
+    return [x.name for x in local_device_protos if x.device_type == 'GPU']
 
 def main(fold, gender_train, custom_dev):
     ############################################################################################# parser config ####################################################################################################
@@ -188,8 +193,9 @@ def main(fold, gender_train, custom_dev):
             print("** check multiple gpu availability **")
             # print(os.getenv("CUDA_VISIBLE_DEVICES", "1"))
             # gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
-            gpus = 4
-            if gpus > 1:
+            gpus = get_available_gpus()
+
+            if len(gpus) > 1:
                 print(f"=====================================** multi_gpu_model is used! gpus={gpus} **================================================")
                 model_train = multi_gpu_model(model, gpus)
                 # FIXME: currently (Keras 2.1.2) checkpoint doesn't work with multi_gpu_model
@@ -252,6 +258,7 @@ def main(fold, gender_train, custom_dev):
 
 if __name__ == "__main__":
     import argparse
+    
 
     # Instantiate the parser
     parser = argparse.ArgumentParser()
