@@ -10,7 +10,7 @@ augmenter = iaa.Sequential(
         # Blur each image with varying strength using gaussian blur (sigma between 0 and 3.0),
         sometimes(iaa.GaussianBlur(sigma=(0, 3.0))),
         # Change brightness of images (50-150% of original value).
-        sometimes(iaa.Multiply((0.5, 1.5), per_channel=0.5)),
+        sometimes(iaa.Multiply((0.8, 1.2), per_channel=0.2)),
         sometimes(iaa.Affine(
             scale={"x": (0.8, 1.2), "y": (0.8, 1.2)},
         ))
